@@ -24,8 +24,8 @@ class PageController extends Controller
         $data->Profile_Img=$filename;
        }
        $data->save();
-       return redirect()->back();
-
+       toastr()->success('Registered sucessfully.', '', ['timeOut' => 5000]);
+       return redirect('/');
     }
     public function show(){
         $data=Register::all();
@@ -42,12 +42,14 @@ class PageController extends Controller
         $data->City=$req->input('City');
         $data->Age=$req->input('Age');
         $data->save();
+        toastr()->success('updated successfully.', '', ['timeOut' => 5000]);
         return redirect('/');
     }
     public function delete($id, $Profile_Img){
         $data = Register::where('id',$id)->where('Profile_Img',$Profile_Img)->first();
         unlink('uploads/images/'.$Profile_Img);
         $data->delete();
+        toastr()->warning('Deleted successfully.', '', ['timeOut' => 5000]);
         return redirect()->back();
     }                      
     
